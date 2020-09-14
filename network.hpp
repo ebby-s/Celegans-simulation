@@ -14,6 +14,9 @@ public:
   bool get_state(string name) const{
     return neurons_by_name[name]->get_neuron_state();
   }
+  const vector<string>* get_neuron_names() const{
+    return &neuron_names;
+  }
   void set_state(string name, bool new_state){
     neurons_by_name[name]->set_neuron_state(new_state);
   }
