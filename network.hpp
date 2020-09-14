@@ -1,6 +1,8 @@
 #include<map>
+#include<iostream>
 #include "neuron.hpp"
 
+using namespace std;
 
 class Network{
 private:
@@ -11,7 +13,7 @@ public:
   Network(int new_threshold){
     threshold = new_threshold;
   }
-  bool get_state(string name) const{
+  bool get_state(string name){
     return neurons_by_name[name]->get_neuron_state();
   }
   const vector<string>* get_neuron_names() const{
@@ -22,12 +24,12 @@ public:
   }
          // adds a synapse, creates neurons if missing
   void add_synapse(string presynaptic, string postsynaptic, int weight){
-    if(neurons_by_name[presynaptic] == neurons_by_name.end()){
+    if(neurons_by_name.count(presynaptic) == 0){
       Neuron* new_pre = new Neuron(threshold);
       neurons_by_name.insert(pair<string,Neuron*> (presynaptic, new_pre));
       neuron_names.push_back(presynaptic);
     }
-    if(neurons_by_name[postsynaptic] == neurons_by_name.end()){
+    if(neurons_by_name.count(postsynaptic) == 0){
       Neuron* new_post = new Neuron(threshold);
       neurons_by_name.insert(pair<string,Neuron*> (postsynaptic, new_post));
       neuron_names.push_back(postsynaptic);

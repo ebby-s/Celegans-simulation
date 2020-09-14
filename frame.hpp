@@ -1,6 +1,3 @@
-#include <vector>
-#include<iostream>
-
 using namespace std;
 
 class Frame{         // stores an array of pixels to represent the final image
@@ -27,7 +24,7 @@ public:
     pixels[location[1]*width + location[0]] = val;
   }
   void clear(){
-    pixels.assign(width_height, 1);
+    pixels.assign(width*height, 1);
   }
   void to_pgm(int scale) const{         // saves image as a pgm file
     cout << "P1" << endl;

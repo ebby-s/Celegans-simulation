@@ -2,6 +2,8 @@
 #include<string>
 #include<cassert>
 
+using namespace std;
+
 class Neuron{
 private:
   int threshold;     // threshold for neuron to fire
@@ -31,10 +33,10 @@ public:
   void step_time(){        // calculate whether neuron will fire next cycle
     int weighted_input = 0;
     for(int i=0; i<inputs.size(); i++){
-      weighted_input += (int)(inputs[i]->get_state()) * weights[i];
+      weighted_input += (int)(inputs[i]->get_neuron_state()) * weights[i];
     }
     if(weighted_input > threshold){
-      next_State = true;   // if threshold reached, neuron will fire next cycle
+      next_state = true;   // if threshold reached, neuron will fire next cycle
     }
   }
 

@@ -25,4 +25,4 @@ for j, col_neuron in enumerate(gap_col_labels):
             connections.append([row_neuron, col_neuron, str(gap_sheet.cell_value(i,j))])
 
 for connection in connections:
-    out_file.write(','.join(connection)+'\n')
+    out_file.write(','.join(connection)+';')
