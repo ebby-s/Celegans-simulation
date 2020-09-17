@@ -8,21 +8,21 @@ class Network{
 private:
   int threshold;         // all neurons in network share the same threshold
   map<string,Neuron*> neurons_by_name;  //map of names to neurons
-  vector<string> neuron_names;
+  vector<string> neuron_names;  // list of names of all the neurons in the network
 public:
   Network(int new_threshold){
     threshold = new_threshold;
   }
-  bool get_state(string name){
+  bool get_state(string name){      // get the state of a neuron
     return neurons_by_name[name]->get_neuron_state();
   }
-  const vector<string>* get_neuron_names() const{
+  const vector<string>* get_neuron_names() const{   // get list of all names
     return &neuron_names;
   }
-  void set_state(string name, bool new_state){
+  void set_state(string name, bool new_state){    // set state of a neuron
     neurons_by_name[name]->set_neuron_state(new_state);
   }
-         // adds a synapse, creates neurons if missing
+         // adds a synapse, creates neurons if not already present
   void add_synapse(string presynaptic, string postsynaptic, int weight){
     if(neurons_by_name.count(presynaptic) == 0){
       Neuron* new_pre = new Neuron(threshold);

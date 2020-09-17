@@ -3,6 +3,8 @@
 
 using namespace std;
 
+         // loads connections into a network object from a list of connections
+             //expects format "presynaptic,postsynaptic,weight;"
 void load_network(Network* network, istream &source){
   char input_char;
   string input_line;
@@ -28,33 +30,24 @@ void load_network(Network* network, istream &source){
 }
 
 int main(int argc, char** argv){
-  Network network(36);
+  Network network(36);   // all neorons in network have threshold 36
   load_network(&network, cin);
+      // stores names of all neurons in network
   const vector<string>* neuron_names = network.get_neuron_names();
 
-  Frame frame(30, 20);
+  Frame frame(30, 20);      // states of neurons can be output using a pgm file
   vector<int> address(2,0);
-  int total_cycles = atoi(argv[1]);
+  int total_cycles = atoi(argv[1]);  // command line argument determines total cycles to run for
 
-  for(int i=0; i<total_cycles+1; i++){
-    if(i<8){
-      network.set_state("ASJL", true);
-      network.set_state("ASJR", true);
-      network.set_state("ASKL", true);
-      network.set_state("ASKR", true);
-      network.set_state("ASGL", true);
-      network.set_state("ASGR", true);
-      network.set_state("ASIL", true);
-      network.set_state("ASIR", true);
-    }
+  for(int i=0; i<total_cycles; i++){
     network.update();
-    if(i==total_cycles){
+    if(i==total_cycles-1){      // states of neurons written as pgm file after simulation
       for(int j=0; j<neuron_names->size(); j++){
         address[1] = j/30;
         address[0] = j%30;
         frame.set_pixel(address, (int)(!network.get_state((*neuron_names)[j])));
       }
-      frame.to_pgm(40);
+      frame.to_pgm(40);     // scale factor 40 when pgm is created
       frame.clear();
     }
   }
